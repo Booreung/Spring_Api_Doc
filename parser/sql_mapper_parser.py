@@ -30,6 +30,9 @@ def parse_sql_mapper(file_path : str) -> List[Dict]:
 
     return result
 
+    #클로저(호이스팅 +), 역순버그 JS(문제점)
+    # 튜플 ->  속도가 빠르고 변화가 없음(데이터 자체의 무결성 보장)
+
 # 예시
 if __name__ ==  "__main__":
     test_file = r"sample\sampleSQL.xml"
