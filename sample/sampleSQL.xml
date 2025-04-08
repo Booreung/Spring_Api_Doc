@@ -1,0 +1,29 @@
+<sqlMap namespace="sampleSQL">
+
+    <select id="retrieveBrncCnt" resultClass="Integer">
+        <![CDATA[
+        SELECT
+               COUNT(1) AS cnt
+          FROM VI_TM_BRCHXM
+        ]]>
+    </select>
+
+    <select id="retrieveJrsdBrncCdByUnmbNo" resultClass="String">
+        <![CDATA[
+        SELECT
+               JRSD_BRNC_CD  AS jrsdBrncCd
+          FROM BUM200M
+         WHERE UNMB_NO = #unmbNo#
+        ]]>
+    </select>
+
+    <select id="retrieveUnmbCrdtInrtRt" resultClass="Double">
+        <![CDATA[
+        SELECT
+               LN_INRT
+          FROM LN_RATE_TABLE
+         WHERE LN_RAT_DCD = #lnRatDcd#
+        ]]>
+    </select>
+
+</sqlMap>
