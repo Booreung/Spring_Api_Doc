@@ -46,7 +46,7 @@ def parse_service_file(file_path : str) -> List[Dict]:
 
 # 예시
 if __name__ == "__main__":
-    test_file = r"sample\UserService.java"
+    test_file = r"sample\UserService.java"  # Service 파일 경로를 입력할것 or ServiceImpl 경로
     if os.path.exists(test_file):
         import json
         parsed = parse_service_file(test_file)

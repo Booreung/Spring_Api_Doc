@@ -64,7 +64,7 @@ def parse_controller_file(file_path : str) -> List[Dict]:
 
 # 예시 실행
 if __name__== "__main__":
-    test_file = r"sample\UserController.java"
+    test_file = r"sample\UserController.java"   # Controller 파일 경로를 입력할것
     if os.path.exists(test_file):
         import json
         parsed = parse_controller_file(test_file)
