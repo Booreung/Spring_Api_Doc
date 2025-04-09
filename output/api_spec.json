@@ -8,7 +8,7 @@
     "service_method": "retrieveLnRpymSbjcList",
     "dao_class": "Qblo001m_01DAO",
     "dao_method": "retrieveLnRpymSbjcList",
-    "dao->sql mapper_id": "Qblo102x_01DAO.retrieveLnRpymSbjcList",
+    "dao->sql_mapper_id": "Qblo102x_01DAO.retrieveLnRpymSbjcList",
     "params": "lnRpymDscrSrchVo",
     "sql_id": "retrieveLnRpymSbjcList",
     "sql_type": "select",

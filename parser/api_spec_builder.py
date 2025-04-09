@@ -49,7 +49,7 @@ def build_api_spec(controller_dir, service_dir, dao_dir, sql_dir):
             "service_method" : None,
             "dao_class" : None,
             "dao_method" : None,
-            "dao->sql mapper_id" : None, 
+            "dao->sql_mapper_id" : None, 
             "params" : None,
             "sql_id" : None,
             "sql_type" : None,
@@ -67,7 +67,7 @@ def build_api_spec(controller_dir, service_dir, dao_dir, sql_dir):
                     if dao["method"] == svc["called_dao_method"]:
                         api_entry["dao_class"] = dao["dao_class"]
                         api_entry["dao_method"] = dao["method"]
-                        api_entry["dao->sql mapper_id"] = dao["mapper_id"]
+                        api_entry["dao->sql_mapper_id"] = dao["mapper_id"]
                         api_entry["params"] = dao["params"]
 
                         # Dao -> Service
