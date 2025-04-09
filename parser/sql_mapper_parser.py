@@ -7,7 +7,7 @@ import os
 from typing import List, Dict
 
 
-def parse_sql_mapper(file_path : str) -> List[Dict]:
+def parse_sql_mapper_file(file_path : str) -> List[Dict]:
     with open(file_path, "r", encoding="utf-8") as f:
         content = f.read()
 
@@ -30,7 +30,7 @@ def parse_sql_mapper(file_path : str) -> List[Dict]:
 
     return result
 
-    #클로저(호이스팅 +), 역순버그 JS(문제점)
+    # 클로저(호이스팅 +), 역순버그 JS(문제점)
     # 튜플 ->  속도가 빠르고 변화가 없음(데이터 자체의 무결성 보장)
 
 # 예시
@@ -38,7 +38,7 @@ if __name__ ==  "__main__":
     test_file = r"sample\sampleSQL.xml"
     if os.path.exists(test_file):
         import json
-        parsed = parse_sql_mapper(test_file)
+        parsed = parse_sql_mapper_file(test_file)
         print(json.dumps(parsed, indent=2, ensure_ascii=False))
     else:
         print("### 샘플 SQL Mapper 파일이 존재하지 않습니다.")

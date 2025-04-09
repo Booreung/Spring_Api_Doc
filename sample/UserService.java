@@ -1,21 +1,18 @@
-@Service
-public class UserService {
 
-    private final UserDao userDao;
+@Service("lnRpymService")
+public  class LnRpymServiceImpl extends EfcAbstractService implements LnRpymService {
 
-    public UserService(UserDao userDao) {
-        this.userDao = userDao;
-    }
+    @PrivateInfoMethod
+    public LnRpymMngmVo retrieveLnRpymSbjcList(LnRpymMngmVo lnRpymMngmVo){
 
-    public List<User> getAllUsers() {
-        return userDao.findAll();
-    }
+    	LnRpymDscrSrchVo lnRpymDscrSrchVo = lnRpymMngmVo.getLnRpymDscrSrchVo();
 
-    public User getUserById(String id) {
-        return userDao.findById(id);
-    }
+    	List<LnRpymDscrRsltVo> LnRpymDscrVoList = qblo102x_01DAO.retrieveLnRpymSbjcList(lnRpymDscrSrchVo);
 
-    public void createUser(User user) {
-        userDao.insertUser(user);
+    	LnRpymMngmVo result = new LnRpymMngmVo();
+    	result.setLnRpymDscrRsltVoList(LnRpymDscrVoList);
+
+    	return result;
+
     }
 }

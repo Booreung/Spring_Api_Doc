@@ -22,6 +22,11 @@ def parse_dao_file(file_path : str) -> List[Dict]:
         if class_match:
             class_name = class_match.group(1)
 
+        # 메소드명 추출
+        fn_match = re.search(r'(public|private|protected)\s+[\w<>]+\s+(\w+)\s*\(', line)
+        if fn_match:
+            function_name = fn_match.group(2)
+
         # C,R,U,D 구분 추출
         method_match = re.search(r'(select|insert|update|delete)\("([\w\.]+)"\s*,\s*(\w+)\)', line)
         if method_match:
@@ -31,6 +36,7 @@ def parse_dao_file(file_path : str) -> List[Dict]:
 
             result.append({
                 "dao_class" : class_name,
+                "method" : function_name,
                 "operation" : operation,
                 "mapper_id" : mapper_id,
                 "params" : params 

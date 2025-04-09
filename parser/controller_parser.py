@@ -32,7 +32,7 @@ def parse_controller_file(file_path : str) -> List[Dict]:
             base_url = ""
 
         # 메서드의 요청 방법 추출 RequestMapping / GetMapping / PostMapping
-        http_match = re.search(r'@(GetMapping|PostMapping|PutMapping|DeleteMapping|RequestMapping)(\("(.*?)"\))?', line)
+        http_match = re.search(r'@(GetMapping|PostMapping|PutMapping|DeleteMapping|RequestMapping)\s*(\(([^)]*)\))?', line)
         if http_match:
             method_type = http_match.group(1).replace('Mapping', '').upper()
             sub_url = http_match.group(3) or ""
