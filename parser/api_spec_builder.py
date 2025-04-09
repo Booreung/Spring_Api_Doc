@@ -3,10 +3,10 @@
 """
 
 import os
-from controller_parser import parse_controller_file
-from service_parser import parse_service_file
-from dao_parser import parse_dao_file
-from sql_mapper_parser import parse_sql_mapper_file
+from parser.controller_parser import parse_controller_file
+from parser.service_parser import parse_service_file
+from parser.dao_parser import parse_dao_file
+from parser.sql_mapper_parser import parse_sql_mapper_file
 
 
 def build_api_spec(controller_dir, service_dir, dao_dir, sql_dir):
