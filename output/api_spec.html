@@ -1,0 +1,104 @@
+
+    <html>
+    <head>
+        <meta charset="utf-8">
+        <title>Spring API 명세서</title>
+        <style>
+            body { font-family: 'Malgun Gothic', sans-serif; }
+            table { border-collapse: collapse; width: 100%; }
+            th, td { border: 1px solid #ccc; padding: 8px; font-size: 13px; }
+            th { background-color: #f2f2f2; }
+            pre { white-space: pre-wrap; word-wrap: break-word; font-family: 'Consolas', monospace; }
+        </style>
+    </head>
+    <body>
+    <h2>📘 Spring API 명세서</h2>
+    <table>
+        <tr>
+            <th>URL</th><th>HTTP Method</th><th>Controller</th><th>Service</th>
+            <th>DAO</th><th>SQL ID</th><th>SQL Type</th><th>Query</th>
+        </tr>
+    
+        <tr>
+            <td>value = "/b/lo/rm/retrieveLnRpymSbjcList.do"</td>
+            <td>REQUEST</td>
+            <td>retrieveLnRpymSbjcList</td>
+            <td>retrieveLnRpymSbjcList</td>
+            <td>retrieveLnRpymSbjcList</td>
+            <td>retrieveLnRpymSbjcList</td>
+            <td>select</td>
+            <td><pre>SELECT /* SQL_ID : Qblo102x_01DAO.retrieveLnRpymSbjcList  */
+                   *
+            FROM (
+                    SELECT *
+                    FROM (
+                               SELECT
+                                       A.LN_CNTR_NO              AS lnCntrNo     /* 융자번호       */
+                                      ,substr(A.LN_CNTR_NO,0,16) AS shrtLnCntrNo /* 단축융자번호   */
+                                      ,A.LN_RPYM_SEQ             AS lnRpymSeq    /* 상환일련번호   */
+                                      ,D.EXTN_ORD                AS extnOrd      /* 차수 -연장차수 */
+                                      ,D.UNMB_NO                 AS unmbNo       /* 조합원번호     */
+                                      ,'['||D.UNMB_NO||'] '||C.ENNM_NM AS ennmNm /* 조합원명(상호) */
+                                      ,D.LN_GDS_CD               AS lnGdsCd      /* 융자종류       */
+                                      ,E.GDS_NM                  AS lnGdsNm      /* 융자종류명     */
+                                      ,D.LN_DT                   AS lnDt         /* 융자일자       */
+                                      ,D.AGR_NO                  AS agrNo        /* 약정번호       */
+                                      ,A.RPYM_DCD                AS rpymDcd      /* 상환구분       */
+                                      ,SF_SCO_CDNM('RPYM_DCD',A.RPYM_DCD) AS rpymDcdNm    /* 상환구분       */
+                                      ,A.RPYM_FXDT_DT            AS rpymFxdtDt   /* 상환기한일자   */
+                                      ,A.RMRK                    AS rmrk         /* 비고           */
+                                      ,A.BFR_LN_RPYM_SEQ         AS bfrLnRpymSeq /*이전융자상환일련번호*/
+                                      ,A.LN_RPYM_VLDY_YN         AS lnRpymVldyYn /* 융자상환유효여부*/
+                                      ,NVL(A.RPYM_BLLN_AMT ,0)   AS rpymBllnAmt  /* 융자금액(상환청구금액)  */
+                                      ,NVL(A.RPYM_UNCL_BLNC,0)   AS rpymUnclBlnc /* 융자잔액(상환미수잔액)  */
+                                      ,NVL(A.RPYM_DPSI_AMT,0)    AS rpymDpsiAmt  /* 상환입금금액   */
+                                      ,NVL(A.RPYM_BLLN_AMT ,0)   AS lnAmt        /* 융자금액(상환청구금액)  */
+                                      ,NVL(A.RPYM_DPSI_AMT,0)    AS lnRpymAmt    /* 상환금액       */
+                                      ,NVL(A.RPYM_UNCL_BLNC,0)   AS lnBlnc       /* 융자잔액(상환미수잔액)  */
+                                      ,A.DLY_OCRN_YN 			 AS dlyOcrnYn 		/* 연체발생여부 */
+                           			  ,A.DLY_CLCL_STRT_DT 		 AS dlyClclStrtDt 	/* 연체계산시작일자 */
+                   		   			  ,A.DLY_INTR_RT_CHNG_DT 	 AS dlyIntrRtChngDt /* 연체이자율변경일자 */
+                                      ,D.JB_BRNC_CD              AS jbBrncCd     /* 관할지점코드   */
+                                      ,D.BFR_LN_CNTR_NO          AS bfrLnCntrNo  /* 이전융자계약번호         */
+                                      ,F.PRNT_OFFN               AS jbBrncNm     /* 관할지점명     */
+                                      ,SYS_CONTEXT('USERENV','IP_ADDRESS') AS ipAddr /* IP주소      */
+                                      ,COUNT(*) OVER()           AS blobInqrCnt  /* 총건수         */
+                              FROM     BLO102X A /* 융자상환내역 */
+                                      ,BUM200M B /* 조합원기본   */
+                                      ,BUM100M C /* 고객기본     */
+                                      ,BLO100M D /* 융자계약기본 */
+                                      ,BCO001M E /* BCO_상품기본 */
+                                      ,VI_TM_BRCHXM F /* 관할지점VIEW */
+                              WHERE    A.LN_CNTR_NO = D.LN_CNTR_NO
+                              AND      B.CSTM_NO    = C.CSTM_NO
+                              AND      D.UNMB_NO    = B.UNMB_NO
+                              AND      A.LN_RPYM_VLDY_YN = 'Y'
+                              AND      D.LN_SCD     IN ('0003','0004','0010') /* 융자상태 - 정상, 이관, 상환완료 */
+                              AND      D.VLDY_YN    = 'Y' /* 유효여부 */
+                              AND      D.LN_GDS_CD  = E.GDS_CD
+                              AND      E.GDS_CLSF_CD = '0003' /*상품분류 -융자*/
+                              AND      D.JB_BRNC_CD = F.ENFC_CODE
+                              AND      (#lnCntrNo# IS NULL OR A.LN_CNTR_NO like substr(#lnCntrNo#,0,16)||'%') /* 융자번호     */
+                              AND      D.LN_GDS_CD  LIKE DECODE(#lnGdsCd#, NULL, '%', #lnGdsCd#)   /* 융자종류     */
+                              AND      D.UNMB_NO    LIKE DECODE(#unmbNo#, NULL, '%', #unmbNo#)       /* 조합원번호   */
+                              AND      (#clclStrtDt# IS NULL OR D.LN_DT >= #clclStrtDt#)
+                              AND      (#clclEndDt#  IS NULL OR D.LN_DT <= #clclEndDt#)
+                              AND      D.JB_BRNC_CD LIKE DECODE(#jbBrncCd#, NULL, '%', #jbBrncCd#) /* 업무지점코드 */
+                          )
+                  WHERE unmbNo >= NVL(#nextKey1#,' ')
+                  AND   (
+                  		 	 unmbNo > #nextKey1#
+                  		OR  (unmbNo = #nextKey1# AND lnCntrNo > #nextKey2# )
+                  		OR  (unmbNo = #nextKey1# AND lnCntrNo = #nextKey2# AND lnRpymSeq >= #nextKey3#)
+                        )
+                  ORDER BY unmbNo      /* 조합원번호       */
+                          ,lnCntrNo    /* 융자번호         */
+                          ,lnRpymSeq   /* 융자상환일련번호 */
+                  )
+        	WHERE ROWNUM <= #rowCount# + 1</pre></td>
+        </tr>
+        
+    </table>
+    </body>
+    </html>
+    
