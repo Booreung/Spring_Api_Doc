@@ -28,7 +28,7 @@ def parse_dao_file(file_path : str) -> List[Dict]:
             function_name = fn_match.group(2)
 
         # C,R,U,D 구분 추출
-        method_match = re.search(r'(select|insert|update|delete)\("([\w\.]+)"\s*,\s*(\w+)\)', line)
+        method_match = re.search(r'(select|insert|update|delete|listScroll|list)\("([\w\.]+)"\s*,\s*(\w+)\)', line)
         if method_match:
             operation = method_match.group(1)
             mapper_id = method_match.group(2)
