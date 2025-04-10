@@ -20,6 +20,7 @@ def generate_html(json_path: str, output_path: str):
             th, td { border: 1px solid #ccc; padding: 8px; font-size: 13px; }
             th { background-color: #f2f2f2; }
             pre { white-space: pre-wrap; word-wrap: break-word; font-family: 'Consolas', monospace; }
+            td.bold-col { font-weight: bold;}
         </style>
     </head>
     <body>
@@ -27,20 +28,21 @@ def generate_html(json_path: str, output_path: str):
     <table>
         <tr>
             <th>URL</th><th>HTTP Method</th><th>Controller</th><th>Service</th>
-            <th>DAO</th><th>SQL ID</th><th>SQL Type</th><th>Query</th>
+            <th>DAO</th><th>SQL ID</th><th>SQL Type</th><th>Params</th><th>Query</th>
         </tr>
     """
 
     for api in api_spec:
         html += f"""
         <tr>
-            <td>{api.get('url', '-')}</td>
-            <td>{api.get('http_method', '-')}</td>
-            <td>{api.get('controller_method', '-')}</td>
-            <td>{api.get('service_method', '-')}</td>
-            <td>{api.get('dao_method', '-')}</td>
-            <td>{api.get('sql_id', '-')}</td>
-            <td>{api.get('sql_type', '-')}</td>
+            <td class="bold-col">{api.get('url', '-')}</td>
+            <td class="bold-col">{api.get('http_method', '-')}</td>
+            <td class="bold-col">{api.get('controller_method', '-')}</td>
+            <td class="bold-col">{api.get('service_method', '-')}</td>
+            <td class="bold-col">{api.get('dao_method', '-')}</td>
+            <td class="bold-col">{api.get('sql_id', '-')}</td>
+            <td class="bold-col">{api.get('sql_type', '-')}</td>
+            <td class="bold-col">{api.get('params', '-')}</td>
             <td><pre>{api.get('Query', '-')}</pre></td>
         </tr>
         """

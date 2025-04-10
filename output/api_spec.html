@@ -9,6 +9,7 @@
             th, td { border: 1px solid #ccc; padding: 8px; font-size: 13px; }
             th { background-color: #f2f2f2; }
             pre { white-space: pre-wrap; word-wrap: break-word; font-family: 'Consolas', monospace; }
+            td.bold-col { font-weight: bold;}
         </style>
     </head>
     <body>
@@ -16,17 +17,18 @@
     <table>
         <tr>
             <th>URL</th><th>HTTP Method</th><th>Controller</th><th>Service</th>
-            <th>DAO</th><th>SQL ID</th><th>SQL Type</th><th>Query</th>
+            <th>DAO</th><th>SQL ID</th><th>SQL Type</th><th>Params</th><th>Query</th>
         </tr>
     
         <tr>
-            <td>value = "/b/lo/rm/retrieveLnRpymSbjcList.do"</td>
-            <td>REQUEST</td>
-            <td>retrieveLnRpymSbjcList</td>
-            <td>retrieveLnRpymSbjcList</td>
-            <td>retrieveLnRpymSbjcList</td>
-            <td>retrieveLnRpymSbjcList</td>
-            <td>select</td>
+            <td class="bold-col">value = "/b/lo/rm/retrieveLnRpymSbjcList.do"</td>
+            <td class="bold-col">REQUEST</td>
+            <td class="bold-col">retrieveLnRpymSbjcList</td>
+            <td class="bold-col">retrieveLnRpymSbjcList</td>
+            <td class="bold-col">retrieveLnRpymSbjcList</td>
+            <td class="bold-col">retrieveLnRpymSbjcList</td>
+            <td class="bold-col">select</td>
+            <td class="bold-col">lnRpymDscrSrchVo</td>
             <td><pre>SELECT /* SQL_ID : Qblo102x_01DAO.retrieveLnRpymSbjcList  */
                    *
             FROM (

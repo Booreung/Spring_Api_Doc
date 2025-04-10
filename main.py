@@ -27,7 +27,7 @@ def main():
     print("\n### API 명세 문서화 작업완료 ###")
 
     # app 실행
-    subprocess.Popen([sys.executable, r"dashboard\app.py"], shell=True)
+    subprocess.run(["python", r"dashboard\app.py"])
 
 
 if __name__ == "__main__":
