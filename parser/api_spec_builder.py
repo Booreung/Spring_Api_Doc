@@ -12,31 +12,16 @@ from parser.sql_mapper_parser import parse_sql_mapper_file
 def build_api_spec(controller_dir, service_dir, dao_dir, sql_dir):
     api_spec = []
 
-    # 1. 파싱
-    controller_data = []
-    service_data = []
-    dao_data = []
-    sql_data = []
-
-    # Controller
-    for fname in os.listdir(controller_dir):
-        if fname.endswith(".java"):
-            controller_data += parse_controller_file(os.path.join(controller_dir, fname))
-
-    # Service
-    for fname in os.listdir(service_dir):
-        if fname.endswith(".java"):
-            service_data += parse_service_file(os.path.join(service_dir, fname))
-
-    # Dao
-    for fname in os.listdir(dao_dir):
-        if fname.endswith(".java"):
-            dao_data += parse_dao_file(os.path.join(dao_dir, fname))
-
-    # SQL
-    for fname in os.listdir(sql_dir):
-        if fname.endswith(".xml"):
-            sql_data += parse_sql_mapper_file(os.path.join(sql_dir, fname))
+    # 1. 파일구분 및 파싱
+    """
+        프로젝트의 controller, service, dao, sql 파일들의 최상단 경로는 직접 넣어줘야함 
+        why? : 전체를 긁어오면 분명 필요없는 데이터까지 올 수 있음
+        스스로 파일 구조 자체는 인지하고 상단 폴더명의 경로만 가져오면 전부 읽히는 로직임
+    """
+    controller_data = parse_file_by_type("controller", controller_dir)
+    service_data = parse_file_by_type("service", service_dir)
+    dao_data = parse_file_by_type("dao", dao_dir)
+    sql_data = parse_file_by_type("sql", sql_dir)
 
     # 2. 연결 매핑
     for ctrl in controller_data:
@@ -83,6 +68,32 @@ def build_api_spec(controller_dir, service_dir, dao_dir, sql_dir):
             print("### 소스코드 파싱 완료 ###\n")
 
     return api_spec
+
+# 파일 구분
+def parse_file_by_type(file_type, dir_path):
+    parsed_data = []
+
+    for fname in os.listdir(dir_path):
+        if not fname.endswith(".java") and file_type != 'sql':
+            continue
+        if not fname.endswith(".xml") and file_type == "sql":
+            continue
+
+        full_path = os.path.join(dir_path, fname)
+
+        if file_type == "controller":
+            parsed_data += parse_controller_file(full_path)
+        
+        elif file_type == "service":
+            parsed_data += parse_service_file(full_path)
+
+        elif file_type == "dao":
+            parsed_data += parse_dao_file(full_path)
+        
+        elif file_type == "sql":
+            parsed_data += parse_sql_mapper_file(full_path)
+        
+    return parsed_data
 
 
 # test
