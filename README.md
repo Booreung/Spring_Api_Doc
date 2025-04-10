@@ -82,5 +82,46 @@ SERVICE_ROOT    = r"sample/service"
 DAO_ROOT        = r"sample/dao"
 SQL_ROOT        = r"sample/sql"
 
-## 명령어 : 
+## 실행 명령어 : 
 python main.py
+
+```
+
+---
+
+## 📦 주요 기능
+✅ 실행 흐름 분석 : Controller → Service → DAO → SQL 흐름 추적
+✅ JSON 출력	: api_spec.json
+✅ HTML 출력 : api_spec.html
+✅ Excel 출력 : API명세서.xlsx (옵션)
+✅ 웹 시각화 : Flask 기반 대시보드 제공 (app.py)
+
+---
+
+## 📝 출력 예시
+
+```json
+{
+  "controller_class": "UserController",
+  "url": "/user/info",
+  "http_method": "GET",
+  "controller_method": "getUserInfo",
+  "service_class": "UserService",
+  "service_method": "getUser",
+  "dao_class": "UserDao",
+  "dao_method": "selectUser",
+  "dao->sql_mapper_id": "selectUser",
+  "params": ["userId"],
+  "sql_id": "selectUser",
+  "sql_type": "select",
+  "Query": "SELECT * FROM users WHERE id = #{userId}"
+}
+```
+
+---
+
+## 💡 참고 및 주의사항
+
+🔸현재는 MyBatis 기반 프로젝트에 최적화되어 있습니다.
+🔸추후 @RequestMapping, @Autowired, @Mapper 등 더 다양한 어노테이션 지원 예정.
+🔸**실제 서비스 환경에 맞게 config.py 내 경로를 꼭 수정하세요!**
