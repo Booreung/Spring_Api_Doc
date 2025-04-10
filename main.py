@@ -8,7 +8,6 @@ from generator.html_generator import generate_html
 from generator.json_generator import generate_json
 from generator.excel_generator import generate_excel
 import subprocess
-import sys
 
 def main():
 
