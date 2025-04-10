@@ -3,10 +3,17 @@
 """
 
 import os
+from enum import Enum
 from parser.controller_parser import parse_controller_file
 from parser.service_parser import parse_service_file
 from parser.dao_parser import parse_dao_file
 from parser.sql_mapper_parser import parse_sql_mapper_file
+
+class FileType(Enum):
+    CONTROLLER = "controller"
+    SERVICE = "service"
+    DAO = "dao"
+    SQL = "sql"
 
 
 def build_api_spec(controller_dir, service_dir, dao_dir, sql_dir):
@@ -18,10 +25,10 @@ def build_api_spec(controller_dir, service_dir, dao_dir, sql_dir):
         why? : 전체를 긁어오면 분명 필요없는 데이터까지 올 수 있음
         스스로 파일 구조 자체는 인지하고 상단 폴더명의 경로만 가져오면 전부 읽히는 로직임
     """
-    controller_data = parse_file_by_type("controller", controller_dir)
-    service_data = parse_file_by_type("service", service_dir)
-    dao_data = parse_file_by_type("dao", dao_dir)
-    sql_data = parse_file_by_type("sql", sql_dir)
+    controller_data = parse_file_by_type(FileType.CONTROLLER, controller_dir)
+    service_data = parse_file_by_type(FileType.SERVICE, service_dir)
+    dao_data = parse_file_by_type(FileType.DAO, dao_dir)
+    sql_data = parse_file_by_type(FileType.SQL, sql_dir)
 
     # 2. 연결 매핑
     for ctrl in controller_data:
@@ -65,33 +72,39 @@ def build_api_spec(controller_dir, service_dir, dao_dir, sql_dir):
         api_spec.append(api_entry)
 
         if(api_spec):
-            print("### 소스코드 파싱 완료 ###\n")
+            print("\n### 소스코드 파싱 완료 ###\n")
+            print(f"### 총 API 수 : {len(api_spec)}\n")
 
     return api_spec
 
 # 파일 구분
-def parse_file_by_type(file_type, dir_path):
+def parse_file_by_type(file_type : FileType, root_dir: str):
     parsed_data = []
+    ext = ".xml" if file_type == FileType.SQL else ".java"
+    count = 0
 
-    for fname in os.listdir(dir_path):
-        if not fname.endswith(".java") and file_type != 'sql':
-            continue
-        if not fname.endswith(".xml") and file_type == "sql":
-            continue
+    for dirpath, _, filenames in os.walk(root_dir):
+        for fname in filenames:
+            if not fname.endswith(ext):
+                continue
 
-        full_path = os.path.join(dir_path, fname)
+            full_path = os.path.join(dirpath, fname)
 
-        if file_type == "controller":
-            parsed_data += parse_controller_file(full_path)
+            if file_type == FileType.CONTROLLER:
+                parsed_data += parse_controller_file(full_path)
         
-        elif file_type == "service":
-            parsed_data += parse_service_file(full_path)
+            elif file_type == FileType.SERVICE:
+                parsed_data += parse_service_file(full_path)
 
-        elif file_type == "dao":
-            parsed_data += parse_dao_file(full_path)
+            elif file_type == FileType.DAO:
+                parsed_data += parse_dao_file(full_path)
         
-        elif file_type == "sql":
-            parsed_data += parse_sql_mapper_file(full_path)
+            elif file_type == FileType.SQL:
+                parsed_data += parse_sql_mapper_file(full_path)
+
+            count += 1
+
+    print(f"### {file_type.value.upper()} 파일 {count}개 분석 완료")
         
     return parsed_data
 
