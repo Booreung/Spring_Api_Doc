@@ -553,6 +553,7 @@ $RECYCLE.BIN/
 *.lnk
 
 # sample folder
+/sample/
 *.java
 *.xml
 
