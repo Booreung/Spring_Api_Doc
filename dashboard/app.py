@@ -12,6 +12,7 @@ HTML_PATH = os.path.join(BASE_DIR, "output", "api_spec.html")
 
 @app.route("/")
 def home():
+    print("### 대시보드 Flask 서버 실행 ###")
     return "<h2>Spring API 문서 자동화 대시보드 🎯</h2><p><a href='/api-doc'>API 명세 보기</a></p>"
 
 @app.route("/api-doc")

@@ -45,11 +45,11 @@ def parse_dao_file(file_path : str) -> List[Dict]:
     return result
 
 # 예시
-if __name__ == "__main__":
-    test_file = r"sample\UserDao.java"  # Dao 파일 경로를 입력할 것
-    if os.path.exists(test_file):
-        import json
-        parsed = parse_dao_file(test_file)
-        print(json.dumps(parsed, indent=2, ensure_ascii=False))
-    else:
-        print("### 샘플 Dao 파일이 존재하지 않습니다.")
+# if __name__ == "__main__":
+#     test_file = r"sample\UserDao.java"  # Dao 파일 경로를 입력할 것
+#     if os.path.exists(test_file):
+#         import json
+#         parsed = parse_dao_file(test_file)
+#         print(json.dumps(parsed, indent=2, ensure_ascii=False))
+#     else:
+#         print("### 샘플 Dao 파일이 존재하지 않습니다.")

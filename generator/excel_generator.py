@@ -59,5 +59,5 @@ def generate_excel(json_path : str, output_path : str):
 
 
 # 테스트
-if __name__ == "__main__":
-    generate_excel(r"output\api_spec.json", r"output\API명세서.xlsx")
+# if __name__ == "__main__":
+#     generate_excel(r"output\api_spec.json", r"output\API명세서.xlsx")

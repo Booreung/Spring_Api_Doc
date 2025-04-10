@@ -13,8 +13,8 @@ def generate_json(api_spec : List[Dict], output_path : str) -> None:
 
 
 # test
-if __name__ == "__main__":
-    api_spec = build_api_spec("sample", "sample", "sample", "sample")
-    generate_json(api_spec, r"output\api_spec.json")
+# if __name__ == "__main__":
+#     api_spec = build_api_spec("sample", "sample", "sample", "sample")
+#     generate_json(api_spec, r"output\api_spec.json")
 
 # 테스트 실행 명령어 python -m generator.json_generator

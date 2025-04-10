@@ -79,11 +79,14 @@ def build_api_spec(controller_dir, service_dir, dao_dir, sql_dir):
 
         api_spec.append(api_entry)
 
+        if(api_spec):
+            print("### 소스코드 파싱 완료 ###\n")
+
     return api_spec
 
 
 # test
-if __name__ == "__main__":
-    spec = build_api_spec("sample", "sample", "sample", "sample")
-    import json
-    print(json.dumps(spec, indent=2, ensure_ascii=False))
+# if __name__ == "__main__":
+#     spec = build_api_spec("sample", "sample", "sample", "sample")
+#     import json
+#     print(json.dumps(spec, indent=2, ensure_ascii=False))

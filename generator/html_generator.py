@@ -58,6 +58,6 @@ def generate_html(json_path: str, output_path: str):
     print(f"### HTML 명세서 저장 완료 → {output_path}")
 
 
-if __name__ == "__main__":
-    generate_html("output/api_spec.json", "output/api_spec.html")
+# if __name__ == "__main__":
+#     generate_html(r"output/api_spec.json", r"output/api_spec.html")
     
