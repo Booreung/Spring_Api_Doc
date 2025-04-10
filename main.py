@@ -22,7 +22,7 @@ def main():
     generate_html(r"output\api_spec.json", r"output\api_spec.html")
 
     # Excel 변환
-    #generate_excel(r"output\api_spec.json", r"output\API명세서.xlsx")
+    generate_excel(r"output\api_spec.json", r"output\API명세서.xlsx")
 
     print("\n### API 명세 문서화 작업완료 ###")
 
