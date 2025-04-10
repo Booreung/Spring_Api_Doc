@@ -19,12 +19,30 @@ def generate_html(json_path: str, output_path: str):
             table { border-collapse: collapse; width: 100%; }
             th, td { border: 1px solid #ccc; padding: 8px; font-size: 13px; }
             th { background-color: #f2f2f2; }
-            pre { white-space: pre-wrap; word-wrap: break-word; font-family: 'Consolas', monospace; }
+            pre.query { white-space: pre-wrap; word-wrap: break-word; font-family: 'Consolas', monospace; max-height: 300px; overflow: auto; }
             td.bold-col { font-weight: bold;}
+            .btn_back{
+                 display: flex;
+                 width: 100px;
+                 height: 30px;
+                 text-align: center;
+                 text-decoration: none;
+                 justify-content: center;
+                 border: 1px solid #D9D9D9;
+                 padding: 15px;
+                 margin-bottom: 10px;
+                 border-radius: 15px;
+                 background-color: black;
+                 color: #D9D9D9;
+                 font-weight: bold;
+                 font-size: larger;
+             }
         </style>
     </head>
     <body>
     <h2>📘 Spring API 명세서</h2>
+    <div><a href="/" class="btn_back">돌아가기</a></div>
+    <hr>
     <table>
         <tr>
             <th>URL</th><th>HTTP Method</th><th>Controller</th><th>Service</th>
@@ -43,12 +61,27 @@ def generate_html(json_path: str, output_path: str):
             <td class="bold-col">{api.get('sql_id', '-')}</td>
             <td class="bold-col">{api.get('sql_type', '-')}</td>
             <td class="bold-col">{api.get('params', '-')}</td>
-            <td><pre>{api.get('Query', '-')}</pre></td>
+            <td>
+                <button onclick="toggleQuery(this)">보기</button>
+                <pre class="query" style="display:none;">{api.get('Query', '-')}</pre>
+            </td>
         </tr>
         """
 
     html += """
     </table>
+    <script>
+        function toggleQuery(button) {
+            const queryElement = button.nextElementSibling;
+            if (queryElement.style.display === "none") {
+                queryElement.style.display = "block";
+                button.innerText = "숨기기";
+            } else {
+                queryElement.style.display = "none";
+                button.innerText = "보기";
+            }
+        }
+    </script>
     </body>
     </html>
     """

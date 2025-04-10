@@ -8,12 +8,30 @@
             table { border-collapse: collapse; width: 100%; }
             th, td { border: 1px solid #ccc; padding: 8px; font-size: 13px; }
             th { background-color: #f2f2f2; }
-            pre { white-space: pre-wrap; word-wrap: break-word; font-family: 'Consolas', monospace; }
+            pre.query { white-space: pre-wrap; word-wrap: break-word; font-family: 'Consolas', monospace; max-height: 300px; overflow: auto; }
             td.bold-col { font-weight: bold;}
+            .btn_back{
+                 display: flex;
+                 width: 100px;
+                 height: 30px;
+                 text-align: center;
+                 text-decoration: none;
+                 justify-content: center;
+                 border: 1px solid #D9D9D9;
+                 padding: 15px;
+                 margin-bottom: 10px;
+                 border-radius: 15px;
+                 background-color: black;
+                 color: #D9D9D9;
+                 font-weight: bold;
+                 font-size: larger;
+             }
         </style>
     </head>
     <body>
     <h2>📘 Spring API 명세서</h2>
+    <div><a href="/" class="btn_back">돌아가기</a></div>
+    <hr>
     <table>
         <tr>
             <th>URL</th><th>HTTP Method</th><th>Controller</th><th>Service</th>
@@ -29,7 +47,9 @@
             <td class="bold-col">retrieveLnRpymSbjcList</td>
             <td class="bold-col">select</td>
             <td class="bold-col">lnRpymDscrSrchVo</td>
-            <td><pre>SELECT /* SQL_ID : Qblo102x_01DAO.retrieveLnRpymSbjcList  */
+            <td>
+                <button onclick="toggleQuery(this)">보기</button>
+                <pre class="query" style="display:none;">SELECT /* SQL_ID : Qblo102x_01DAO.retrieveLnRpymSbjcList  */
                    *
             FROM (
                     SELECT *
@@ -97,10 +117,23 @@
                           ,lnCntrNo    /* 융자번호         */
                           ,lnRpymSeq   /* 융자상환일련번호 */
                   )
-        	WHERE ROWNUM <= #rowCount# + 1</pre></td>
+        	WHERE ROWNUM <= #rowCount# + 1</pre>
+            </td>
         </tr>
         
     </table>
+    <script>
+        function toggleQuery(button) {
+            const queryElement = button.nextElementSibling;
+            if (queryElement.style.display === "none") {
+                queryElement.style.display = "block";
+                button.innerText = "숨기기";
+            } else {
+                queryElement.style.display = "none";
+                button.innerText = "보기";
+            }
+        }
+    </script>
     </body>
     </html>
     
