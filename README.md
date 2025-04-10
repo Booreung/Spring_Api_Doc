@@ -36,3 +36,20 @@ Spring_Api_Doc/ │
 ├── api_spec.html 
 └── API명세서.xlsx
 
+---
+
+
+## 🚀 실행 방법
+
+### 1. 경로 설정 (config.py)
+
+```python
+PROJECT_ROOT = r"sample"
+
+CONTROLLER_ROOT = r"sample/controller"
+SERVICE_ROOT    = r"sample/service"
+DAO_ROOT        = r"sample/dao"
+SQL_ROOT        = r"sample/sql"
+
+## 명령어 : 
+python main.py
