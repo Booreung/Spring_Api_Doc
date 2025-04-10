@@ -1,5 +1,5 @@
 """
-    미리 만들어지 api_spec.html을 통해 Flask로 웹 대시보드 띄우기 => localhost:5000
+    미리 만들어진 api_spec.html을 통해 Flask로 웹 대시보드 띄우기 => localhost:5000
 """
 
 from flask import Flask, render_template
